@@ -1,12 +1,13 @@
-import { NextConfig } from "next";
+import { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  transpilePackages: ['@repo/ui'],
   typescript: {
-    ignoreBuildErrors: false,
+    ignoreBuildErrors: false
   },
   eslint: {
-    ignoreDuringBuilds: false,
-  },
-};
+    ignoreDuringBuilds: false
+  }
+}
 
-export default nextConfig;
+export default nextConfig
