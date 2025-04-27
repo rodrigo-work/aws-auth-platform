@@ -1,9 +1,9 @@
-import { log } from "@repo/logger";
-import { createServer } from "./server";
+import 'dotenv/config'
+import { Application } from './app'
 
-const port = process.env.PORT || 5001;
-const server = createServer();
+const app = new Application().init()
+const port = process.env.PORT || 5001
 
-server.listen(port, () => {
-  log(`api running on ${port}`);
-});
+app.listen(port, () => {
+  console.log(`🚀 Api running on ${port}`)
+})
