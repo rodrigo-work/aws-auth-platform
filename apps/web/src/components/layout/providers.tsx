@@ -6,9 +6,11 @@ import { ActiveThemeProvider } from '@repo/ui/external/active-theme'
 import React from 'react'
 
 export default function Providers({
+  // cookieIDP,
   activeThemeValue,
   children
 }: {
+  // cookieIDP: string
   activeThemeValue: string
   children: React.ReactNode
 }) {
@@ -17,6 +19,7 @@ export default function Providers({
 
   return (
     <>
+      {/* <UserProvider cookieIDP={cookieIDP}> */}
       <ActiveThemeProvider initialTheme={activeThemeValue}>
         {/* <ClerkProvider
           appearance={{
@@ -26,6 +29,7 @@ export default function Providers({
         {children}
         {/* </ClerkProvider> */}
       </ActiveThemeProvider>
+      {/* </UserProvider> */}
     </>
   )
 }

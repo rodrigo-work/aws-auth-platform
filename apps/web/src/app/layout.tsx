@@ -30,6 +30,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const cookieStore = await cookies()
+  const cookieIDP = cookieStore.get('id_token')?.value ?? ''
   const activeThemeValue = cookieStore.get('active_theme')?.value
   const isScaled = activeThemeValue?.endsWith('-scaled')
 
@@ -65,7 +66,10 @@ export default async function RootLayout({
             disableTransitionOnChange
             enableColorScheme
           >
-            <Providers activeThemeValue={activeThemeValue as string}>
+            <Providers
+              // cookieIDP={cookieIDP}
+              activeThemeValue={activeThemeValue as string}
+            >
               <Toaster />
               {children}
             </Providers>

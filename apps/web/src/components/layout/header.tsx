@@ -1,6 +1,5 @@
 import { Breadcrumbs } from '../breadcrumbs'
 // import SearchInput from '../search-input'
-// import { UserNav } from "./user-nav";
 import { Separator } from '@repo/ui/components/separator'
 import { SidebarTrigger } from '@repo/ui/components/sidebar'
 import CtaGithub from '@repo/ui/external/cta-github'

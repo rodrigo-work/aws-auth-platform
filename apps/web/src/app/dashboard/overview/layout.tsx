@@ -10,7 +10,13 @@ import {
 } from '@repo/ui/components/card'
 import { IconTrendingDown, IconTrendingUp } from '@tabler/icons-react'
 
-export default function OverViewLayout() {
+export default function OverViewLayout({
+  sales,
+  bar_stats
+}: {
+  sales: React.ReactNode
+  bar_stats: React.ReactNode
+}) {
   return (
     <PageContainer>
       <div className="flex flex-1 flex-col space-y-2">
@@ -112,10 +118,10 @@ export default function OverViewLayout() {
           </Card>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
-          {/* <div className="col-span-4">{bar_stats}</div> */}
+          <div className="col-span-4">{bar_stats}</div>
           <div className="col-span-4 md:col-span-3">
             {/* sales arallel routes */}
-            {/* {sales} */}
+            {sales}
           </div>
           {/* <div className="col-span-4">{area_stats}</div> */}
           {/* <div className="col-span-4 md:col-span-3">{pie_stats}</div> */}
