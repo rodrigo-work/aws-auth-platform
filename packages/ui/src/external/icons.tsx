@@ -1,6 +1,7 @@
 import {
   IconAlertTriangle,
   IconArrowRight,
+  IconBrandAsana,
   IconBrandGithub,
   IconBrandTwitter,
   IconCheck,
@@ -29,6 +30,7 @@ import {
   IconUser,
   IconUserCircle,
   IconUserEdit,
+  IconUsersGroup,
   IconUserX,
   IconX
 } from '@tabler/icons-react'
@@ -66,5 +68,7 @@ export const Icons = {
   laptop: IconDeviceLaptop,
   github: IconBrandGithub,
   twitter: IconBrandTwitter,
-  check: IconCheck
+  check: IconCheck,
+  tasks: IconBrandAsana,
+  usersGroup: IconUsersGroup
 }
