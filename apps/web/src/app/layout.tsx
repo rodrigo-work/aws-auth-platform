@@ -1,29 +1,76 @@
-import { Geist, Geist_Mono } from 'next/font/google'
+import Providers from '@/components/layout/providers'
+import ThemeProvider from '@/components/layout/ThemeToggle/theme-provider'
+import { fontVariables } from '@/lib/font'
+import { cn } from '@/lib/utils'
+import { Toaster } from '@repo/ui/components/sonner'
+import '@repo/ui/styles/globals.css'
+import '@repo/ui/styles/theme.css'
+import type { Metadata, Viewport } from 'next'
+import { cookies } from 'next/headers'
+import NextTopLoader from 'nextjs-toploader'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
-import { Providers } from '@/components/providers'
-import '@repo/ui/globals.css'
+const META_THEME_COLORS = {
+  light: '#ffffff',
+  dark: '#09090b'
+}
 
-const fontSans = Geist({
-  subsets: ['latin'],
-  variable: '--font-sans'
-})
+export const metadata: Metadata = {
+  title: 'Next Shadcn',
+  description: 'Basic dashboard with Next.js and Shadcn'
+}
 
-const fontMono = Geist_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono'
-})
+export const viewport: Viewport = {
+  themeColor: META_THEME_COLORS.light
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
+  const cookieStore = await cookies()
+  const activeThemeValue = cookieStore.get('active_theme')?.value
+  const isScaled = activeThemeValue?.endsWith('-scaled')
+
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  document.querySelector('meta[name="theme-color"]').setAttribute('content', '${META_THEME_COLORS.dark}')
+                }
+              } catch (_) {}
+            `
+          }}
+        />
+      </head>
       <body
-        className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased `}
+        className={cn(
+          'bg-background overflow-hidden overscroll-none font-sans antialiased',
+          activeThemeValue ? `theme-${activeThemeValue}` : '',
+          isScaled ? 'theme-scaled' : '',
+          fontVariables
+        )}
       >
-        <Providers>{children}</Providers>
+        <NextTopLoader showSpinner={false} />
+        <NuqsAdapter>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+            enableColorScheme
+          >
+            <Providers activeThemeValue={activeThemeValue as string}>
+              <Toaster />
+              {children}
+            </Providers>
+          </ThemeProvider>
+        </NuqsAdapter>
       </body>
     </html>
   )
