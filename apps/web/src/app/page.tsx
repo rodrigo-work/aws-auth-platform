@@ -1,31 +1,66 @@
-import { log } from "@repo/logger";
-import { Link } from "@repo/ui/link";
-import { CounterButton } from "@repo/ui/counter-button";
+'use client'
 
-export const metadata = {
-  title: "Web | Next.js",
-};
+import { Button } from '@repo/ui/components/button'
+import { Input } from '@repo/ui/components/input'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 
-export default function Store() {
-  log("Hey! This is the Store page.");
+const API_HOST = process.env.NEXT_PUBLIC_API_HOST || 'http://localhost:5001'
+
+export default function Page() {
+  const [name, setName] = useState<string>('')
+  const [response, setResponse] = useState<{ message: string } | null>(null)
+  const [error, setError] = useState<string | undefined>()
+
+  useEffect(() => {
+    setResponse(null)
+    setError(undefined)
+  }, [name])
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    try {
+      const result = await fetch(`${API_HOST}/message/${name}`)
+      const response = await result.json()
+      setResponse(response)
+    } catch (err) {
+      console.error(err)
+      setError('Unable to fetch response')
+    }
+  }
+
+  const onReset = () => {
+    setName('')
+  }
 
   return (
-    <div className="container">
-      <h1 className="title">
-        Web <br />
-        <span>Next.js</span>
-      </h1>
-      <CounterButton />
-      <p className="description">
-        Built With{" "}
-        <Link href="https://turborepo.com" newTab>
-          Turborepo
-        </Link>
-        {" & "}
-        <Link href="https://nextjs.org/" newTab>
-          Next.js
-        </Link>
-      </p>
-    </div>
-  );
+    <>
+      <div className="flex items-center justify-center min-h-svh">
+        <div className="flex flex-col items-center justify-center gap-4">
+          <h1 className="text-2xl font-bold">Hello World</h1>
+          <form onSubmit={onSubmit}>
+            <div className="flex w-full max-w-sm items-center space-x-2">
+              <Input type="text" placeholder="Message" />
+              <Button type="submit">Send</Button>
+            </div>
+          </form>
+          {error && (
+            <div>
+              <h3>Error</h3>
+              <p>{error}</p>
+            </div>
+          )}
+          {response && (
+            <div>
+              <h3>Greeting</h3>
+              <p>{response.message}</p>
+              <Button onClick={onReset}>Reset</Button>
+            </div>
+          )}
+        </div>
+      </div>
+    </>
+  )
 }
