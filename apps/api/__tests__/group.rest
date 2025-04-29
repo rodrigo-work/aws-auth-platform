@@ -1,0 +1,18 @@
+@baseUrl = http://localhost:3001
+###
+POST {{baseUrl}}/groups HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "fake",
+    "description": "description fake group"
+}
+###
+GET {{baseUrl}}/groups HTTP/1.1
+###
+DELETE {{baseUrl}}/groups HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "fake"
+}

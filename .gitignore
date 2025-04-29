@@ -11,3 +11,5 @@ dist-ssr
 server/dist
 public/dist
 next-env.d.ts
+*.code-workspace
+.vercel

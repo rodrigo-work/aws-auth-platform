@@ -1,31 +1,14 @@
-import { log } from "@repo/logger";
-import { Link } from "@repo/ui/link";
-import { CounterButton } from "@repo/ui/counter-button";
+// import { auth } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation'
 
-export const metadata = {
-  title: "Web | Next.js",
-};
+export default async function Dashboard() {
+  // log('Hey! This is the Web page.')
 
-export default function Store() {
-  log("Hey! This is the Store page.");
-
-  return (
-    <div className="container">
-      <h1 className="title">
-        Web <br />
-        <span>Next.js</span>
-      </h1>
-      <CounterButton />
-      <p className="description">
-        Built With{" "}
-        <Link href="https://turborepo.com" newTab>
-          Turborepo
-        </Link>
-        {" & "}
-        <Link href="https://nextjs.org/" newTab>
-          Next.js
-        </Link>
-      </p>
-    </div>
-  );
+  // const { userId } = await auth();
+  redirect('/dashboard/overview')
+  // if (!userId) {
+  //   return redirect('/auth/sign-in')
+  // } else {
+  //   redirect('/dashboard/overview')
+  // }
 }

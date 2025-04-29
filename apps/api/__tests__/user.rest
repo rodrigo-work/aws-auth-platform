@@ -1,0 +1,3 @@
+@baseUrl = http://localhost:3001
+###
+GET {{baseUrl}}/users HTTP/1.1
