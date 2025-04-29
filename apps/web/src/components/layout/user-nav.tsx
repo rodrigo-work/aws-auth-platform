@@ -1,6 +1,5 @@
 'use client'
 
-import { UserAvatarProfile } from '@/components/user-avatar-profile'
 import { useUser } from '@/hooks/use-user'
 import { Button } from '@repo/ui/components/button'
 import {
@@ -24,7 +23,7 @@ export function UserNav() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-            <UserAvatarProfile user={user} />
+            {/* <UserAvatarProfile user={user} /> */}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
