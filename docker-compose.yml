@@ -1,0 +1,27 @@
+services:
+  api:
+    container_name: api-dev
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile.dev
+    env_file:
+      - ./apps/api/.env
+    ports:
+      - '3001:3001'
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/apps/api/node_modules
+  web:
+    container_name: web-dev
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile.dev
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: pnpm --filter web dev
+    environment:
+      - NODE_ENV=development

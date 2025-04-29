@@ -2,7 +2,14 @@
   "extends": ["//"],
   "tasks": {
     "build": {
-      "env": ["TZ", "PORT", "NODE_ENV"],
+      "env": [
+        "TZ",
+        "PORT",
+        "NODE_ENV",
+        "COGNITO_REGION",
+        "COGNITO_CLIENT_ID",
+        "COGNITO_USER_POOL_ID"
+      ],
       "outputs": ["dist/**"]
     }
   }

@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express'
+import { Router } from 'express'
 import { GroupController } from '../controllers/GroupController'
 
 export class GroupRoutes {
@@ -12,28 +12,19 @@ export class GroupRoutes {
   }
 
   private initializeRoutes(): void {
-    this.router.get(
-      '/status',
-      async (req: Request, res: Response): Promise<void> => {
-        await this.groupController.getStatus(req, res)
-      }
+    this.router.post(
+      '/',
+      this.groupController.createGroup.bind(this.groupController)
     )
 
-    this.router.post(
-      '/create',
-      this.groupController.create.bind(this.groupController)
-    )
     this.router.get(
-      '/list',
-      this.groupController.list.bind(this.groupController)
+      '/',
+      this.groupController.getAllGroup.bind(this.groupController)
     )
-    this.router.post(
-      '/update',
-      this.groupController.update.bind(this.groupController)
-    )
-    this.router.post(
-      '/delete',
-      this.groupController.delete.bind(this.groupController)
+
+    this.router.delete(
+      '/',
+      this.groupController.deleteGroup.bind(this.groupController)
     )
   }
 

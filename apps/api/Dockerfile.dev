@@ -1,0 +1,18 @@
+FROM node:20
+
+RUN npm install -g pnpm
+
+WORKDIR /app
+
+COPY pnpm-lock.yaml ./
+COPY package.json ./
+COPY turbo.json ./
+COPY apps/api/package.json ./apps/api/package.json
+
+RUN pnpm install
+
+COPY . .
+
+EXPOSE 3001
+
+CMD ["pnpm", "--filter", "api", "dev"]
