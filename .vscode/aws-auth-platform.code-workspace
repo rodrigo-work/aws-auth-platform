@@ -1,0 +1,54 @@
+{
+  "folders": [
+    {
+      "name": "aws-auth-platform",
+      "path": "../"
+    },
+    {
+      "name": "app",
+      "path": "../apps/app"
+    },
+    {
+      "name": "auth",
+      "path": "../apps/auth"
+    },
+    {
+      "name": "design-system",
+      "path": "../packages/design-system"
+    },
+    {
+      "name": "internationalization",
+      "path": "../packages/internationalization"
+    }
+  ],
+  "settings": {
+    "[javascript]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[jsonc]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    "editor.codeActionsOnSave": {
+      "source.action.useSortedAttributes.biome": "explicit",
+      "source.fixAll.biome": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "emmet.showExpandedAbbreviation": "always",
+    "prettier.enable": false,
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "tailwindCSS.experimental.configFile": "../packages/design-system/styles/globals.css",
+    "liveServer.settings.multiRootWorkspaceName": "aws-auth-platform"
+  }
+}
