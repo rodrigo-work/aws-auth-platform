@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express'
+import { type Request, type Response, Router } from 'express'
 import { HealthController } from '../controllers/HealthController'
 
 export class HealthRoutes {
@@ -12,18 +12,12 @@ export class HealthRoutes {
   }
 
   private initializeRoutes(): void {
-    this.router.get(
-      '/health',
-      async (req: Request, res: Response): Promise<void> => {
-        await this.healthController.getStatus(req, res)
-      }
-    )
-    this.router.get(
-      '/message/:name',
-      async (req: Request, res: Response): Promise<void> => {
-        await this.healthController.getMessage(req, res)
-      }
-    )
+    this.router.get('/health', async (req: Request, res: Response): Promise<void> => {
+      await this.healthController.getStatus(req, res)
+    })
+    this.router.get('/message/:name', async (req: Request, res: Response): Promise<void> => {
+      await this.healthController.getMessage(req, res)
+    })
   }
 
   public getRouter(): Router {

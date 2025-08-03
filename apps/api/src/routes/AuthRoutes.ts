@@ -27,10 +27,7 @@ export class AuthRoutes {
     //   '/confirm',
     //   this.authController.confirmSignUp.bind(this.authController)
     // )
-    this.router.post(
-      '/sign-in',
-      this.authController.signIn.bind(this.authController)
-    )
+    this.router.post('/sign-in', this.authController.signIn.bind(this.authController))
     // this.router.post(
     //   '/forgot-password',
     //   this.authController.forgotPassword.bind(this.authController)

@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import type { Request, Response } from 'express'
 import { HealthService } from '../services/HealthService'
 import { AbstractController } from './AbstractController'
 

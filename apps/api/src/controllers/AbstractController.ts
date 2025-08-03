@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Response } from 'express'
+import type { Response } from 'express'
 
 export abstract class AbstractController {
   protected handleError(res: Response, error: unknown): void {
@@ -10,9 +10,7 @@ export abstract class AbstractController {
     }
 
     if (error instanceof Error) {
-      res
-        .status(data.status)
-        .json({ status: data.status, name: data.name, message: data.message })
+      res.status(data.status).json({ status: data.status, name: data.name, message: data.message })
     } else {
       res.status(500).json({ error: 'Unexpected error occurred' })
     }

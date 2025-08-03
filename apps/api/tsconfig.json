@@ -1,13 +1,17 @@
 {
   "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "es2020",
     "rootDir": "./src",
     "outDir": "./dist",
     "strict": true,
-    "esModuleInterop": true
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@repo/*": ["../../packages/*"]
+    }
   },
-  "include": ["src", "./src/types/*.ts"],
+  "include": ["./src/**/*"],
   "exclude": ["node_modules"]
 }

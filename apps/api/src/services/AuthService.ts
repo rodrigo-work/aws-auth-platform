@@ -1,7 +1,4 @@
-import {
-  AdminInitiateAuthCommand,
-  AuthFlowType
-} from '@aws-sdk/client-cognito-identity-provider'
+import { AdminInitiateAuthCommand, AuthFlowType } from '@aws-sdk/client-cognito-identity-provider'
 import crypto from 'crypto'
 import { AbstractService } from './AbstractService'
 
@@ -54,22 +51,14 @@ export class AuthService extends AbstractService {
   //   }
   // }
 
-  private generateSecretHash(
-    username: string,
-    clientId: string,
-    clientSecret: string
-  ): string {
+  private generateSecretHash(username: string, clientId: string, clientSecret: string): string {
     const hmac = crypto.createHmac('sha256', clientSecret)
     hmac.update(username + clientId)
     return hmac.digest('base64')
   }
 
   async signIn(email: string, password: string) {
-    const secretHash = this.generateSecretHash(
-      email,
-      this.clientId,
-      this.clientSecret
-    )
+    const secretHash = this.generateSecretHash(email, this.clientId, this.clientSecret)
     const params = {
       AuthFlow: AuthFlowType.ADMIN_NO_SRP_AUTH,
       ClientId: this.clientId,
