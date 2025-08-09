@@ -1,0 +1,45 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.1.3/schema.json",
+  "extends": ["ultracite"],
+  "files": {
+    "includes": [
+      "apps/app/**",
+      "apps/auth/**",
+      "packages/design-system/components/**",
+      "!packages/design-system/components/ui/**",
+      "!**/*.test.js",
+      "**/special.test.js",
+      "!test"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 100
+  },
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded",
+      "quoteStyle": "single",
+      "arrowParentheses": "always",
+      "bracketSpacing": true,
+      "jsxQuoteStyle": "double",
+      "trailingCommas": "none"
+    }
+  },
+  "json": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "useSortedAttributes": "on",
+        "organizeImports": "on"
+      }
+    }
+  }
+}
