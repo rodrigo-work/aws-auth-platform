@@ -1,0 +1,29 @@
+name: Render CLI Deploy
+run-name: Deploying via Render CLI
+
+on:
+  # push:
+    # branches:
+      # - develop
+
+  pull_request:
+    branches: ['main']
+    types: [opened, synchronize]
+
+
+jobs:
+  Deploy-Render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Render CLI
+        run: |
+          curl -L https://github.com/render-oss/cli/releases/download/v1.1.0/cli_1.1.0_linux_amd64.zip -o render.zip
+          unzip render.zip
+          sudo mv cli_v1.1.0 /usr/local/bin/render
+      - name: Trigger deploy with Render CLI
+        env:
+          RENDER_API_KEY: 'rnd_LJ54jLE3XAyVG139jkjfkfmglaru' # ${{ secrets.RENDER_API_KEY }}
+          CI: true
+        run: |
+          # render deploys create ${{ secrets.RENDER_SERVICE_ID }} --output json --confirm
+          render deploys create srv-d08ia57diees738lishg --output json --confirm
