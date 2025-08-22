@@ -1,0 +1,9 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "env": ["NODE_ENV"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    }
+  }
+}

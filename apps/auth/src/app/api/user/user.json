@@ -1,0 +1,32 @@
+{
+  "$metadata": {
+    "httpStatusCode": 200,
+    "requestId": "155bfd37-0d8b-4e57-9b00-5d45b8066644",
+    "attempts": 1,
+    "totalRetryDelay": 0
+  },
+  "UserAttributes": [
+    { "Name": "email", "Value": "me@rodrigo3d.com" },
+    { "Name": "email_verified", "Value": "true" },
+    { "Name": "name", "Value": "Rodrigo Ribeiro" },
+    { "Name": "family_name", "Value": "Ribeiro" },
+    { "Name": "given_name", "Value": "Rodrigo" },
+    {
+      "Name": "picture",
+      "Value": "https://lh3.googleusercontent.com/a/ACg8ocLwFeyYbtxRUEDXCxh81TrxcG290Uy1mOWk3KCJgac-_HIwqX12TA=s96-c"
+    },
+    { "Name": "zoneinfo", "Value": "America/Sao_Paulo" },
+    { "Name": "locale", "Value": "es" },
+    {
+      "Name": "profile",
+      "Value": "[{\"theme\":\"light\",\"test\":\"testing\"}]"
+    },
+    { "Name": "birthdate", "Value": "1984-02-23" },
+    { "Name": "sub", "Value": "1438d4b8-b0e1-70cc-121b-25c0e88d0f67" },
+    {
+      "Name": "identities",
+      "Value": "[{\"dateCreated\":\"1755842184068\",\"userId\":\"108118206851489063174\",\"providerName\":\"Google\",\"providerType\":\"Google\",\"issuer\":null,\"primary\":\"true\"}]"
+    }
+  ],
+  "Username": "google_108118206851489063174"
+}

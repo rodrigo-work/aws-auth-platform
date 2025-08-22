@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Dark Mode</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #1F2937; /* Fundo geral escuro */
+      color: #F9FAFB; /* Texto claro */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background-color: #111827; /* Card mais escuro */
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      margin-bottom: 24px;
+      color: #F9FAFB;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #E5E7EB;
+      font-weight: bold;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #374151;
+      background-color: #1F2937;
+      color: #F9FAFB;
+      border-radius: 4px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      border-color: #3B82F6; /* Azul claro */
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      background-color: #2563EB;
+      color: #FFFFFF;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1E40AF;
+    }
+
+    .footer-text {
+      text-align: center;
+      margin-top: 16px;
+      color: #9CA3AF;
+      font-size: 14px;
+    }
+
+    .footer-text a {
+      color: #3B82F6;
+      text-decoration: none;
+    }
+
+    .footer-text a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Entrar</h2>
+    <form>
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+
+      <label for="password">Senha</label>
+      <input type="password" id="password" name="password" placeholder="Sua senha" required />
+
+      <button type="submit">Entrar</button>
+    </form>
+
+    <div class="footer-text">
+      <p><a href="#">Esqueceu sua senha?</a></p>
+    </div>
+  </div>
+
+</body>
+</html>
