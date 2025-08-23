@@ -16,7 +16,6 @@ import { IconChevronDown, IconEdit, IconTrash } from '@tabler/icons-react'
 import type { ColumnDef } from '@tanstack/react-table'
 import { Settings2 } from 'lucide-react'
 import { parseAsInteger, useQueryState } from 'nuqs'
-import React from 'react'
 
 interface GroupsTableProps<TData, TValue> {
   data: TData[]

@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState } from 'react'
-import useDialogState from '../hooks/use-dialog-state'
-import type { User } from '../users/data/schema'
+import useDialogState from '../../hooks/use-dialog-state'
+import type { User } from '../data/schema'
 
 type GroupsDialogType = 'add' | 'edit' | 'delete' | 'enable-disable-user' | 'reset-password'
 

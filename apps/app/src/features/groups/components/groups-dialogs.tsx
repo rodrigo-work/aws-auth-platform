@@ -1,8 +1,7 @@
 'use client'
 
-import { useGroups } from '../../context/groups-context'
+import { useGroups } from '../context/groups-context'
 import { GroupsDialogAction } from './groups-dialog-action'
-import { GroupsDialogDelete } from './groups-dialog-delete'
 
 export function GroupsDialogs() {
   const { open, setOpen, currentRow, setCurrentRow } = useGroups()
@@ -33,8 +32,7 @@ export function GroupsDialogs() {
             }}
             open={open === 'edit'}
           /> */}
-          {/*
-          <GroupsDialogDelete
+          {/* <GroupsDialogDelete
             currentRow={currentRow}
             key={`user-delete-${currentRow}`}
             onOpenChange={() => {
@@ -44,7 +42,7 @@ export function GroupsDialogs() {
               }, 500)
             }}
             open={open === 'delete'}
-          /> */}
+          />*/}
         </>
       )}
     </>

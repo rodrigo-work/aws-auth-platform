@@ -1,10 +1,10 @@
 'use client'
 
-import { useGroups } from '../../context/groups-context'
-import { GroupsDialogDelete, GroupsDialogResetPassword } from './dialog'
+import { useUsers } from '../context/users-context'
+import { DeleteDialog, EnableDisableDialog, ResetPasswordDialog } from './dialog'
 
-export function GroupsDialogs() {
-  const { open, setOpen, currentRow, setCurrentRow } = useGroups()
+export function UsersDialogs() {
+  const { open, setOpen, currentRow, setCurrentRow } = useUsers()
   return (
     <>
       {/* <GroupsDialogAction
@@ -15,31 +15,7 @@ export function GroupsDialogs() {
 
       {currentRow && (
         <>
-          <GroupsDialogDelete
-            currentRow={currentRow}
-            key={`user-delete-${currentRow}`}
-            onOpenChange={() => {
-              setOpen('delete')
-              setTimeout(() => {
-                setCurrentRow(null)
-              }, 500)
-            }}
-            open={open === 'delete'}
-          />
-
-          <GroupsDialogResetPassword
-            currentRow={currentRow}
-            key={`reset-password-${currentRow}`}
-            onOpenChange={() => {
-              setOpen('reset-password')
-              setTimeout(() => {
-                setCurrentRow(null)
-              }, 500)
-            }}
-            open={open === 'reset-password'}
-          />
-
-          {/* <UserDialogEnableDisable
+          <EnableDisableDialog
             currentRow={currentRow}
             key={`enable-disable-user-${currentRow}`}
             onOpenChange={() => {
@@ -51,7 +27,29 @@ export function GroupsDialogs() {
             open={open === 'enable-disable-user'}
           />
 
-     */}
+          <DeleteDialog
+            currentRow={currentRow}
+            key={`user-delete-${currentRow}`}
+            onOpenChange={() => {
+              setOpen('delete')
+              setTimeout(() => {
+                setCurrentRow(null)
+              }, 500)
+            }}
+            open={open === 'delete'}
+          />
+
+          <ResetPasswordDialog
+            currentRow={currentRow}
+            key={`reset-password-${currentRow}`}
+            onOpenChange={() => {
+              setOpen('reset-password')
+              setTimeout(() => {
+                setCurrentRow(null)
+              }, 500)
+            }}
+            open={open === 'reset-password'}
+          />
         </>
       )}
     </>

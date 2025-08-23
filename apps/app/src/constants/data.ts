@@ -1,5 +1,11 @@
 import type { NavItem } from '@/types'
 
+export const cookiesName = {
+  idToken: 'id_token',
+  accessToken: 'access_token',
+  refreshToken: 'refresh_token'
+} as const
+
 export type Product = {
   photo_url: string
   name: string

@@ -3,11 +3,11 @@
 import { Button, buttonVariants } from '@repo/design-system/components/ui/button'
 import { cn } from '@repo/design-system/lib/utils'
 import { IconMailPlus, IconPlus } from '@tabler/icons-react'
-import { CardsChat } from '../chat'
-import { useGroups } from '../context/groups-context'
+import { CardsChat } from '../../chat'
+import { useUsers } from '../context/users-context'
 
 export function PrimaryButtons() {
-  const { setOpen } = useGroups()
+  const { setOpen } = useUsers()
 
   return (
     <div className="flex gap-2">

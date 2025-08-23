@@ -1,154 +1,85 @@
-////////////////////////////////////////////////////////////////////////////////
+// ****************************************************************************
 // 🛑 Nothing in here has anything to do with Nextjs, it's just a fake database
-////////////////////////////////////////////////////////////////////////////////
+// ****************************************************************************
 
-/** biome-ignore-all lint/correctness/noUnusedFunctionParameters: <explanation> */
 /** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
 
 import { base, Faker, pt_BR } from '@faker-js/faker'
-import { matchSorter } from 'match-sorter' // For filtering
+import { matchSorter } from 'match-sorter'
 import { type NextRequest, NextResponse } from 'next/server'
+
+export const runtime = 'edge'
 
 const faker = new Faker({
   locale: [pt_BR, base]
 })
 
-// Mock current time
-const currentTime = new Date().toISOString()
-
-// Define the shape of Event data
-type Guest = {
-  id: string
-  email: string
-}
-
-type Event = {
+type Group = {
+  roles: string[]
   name: string
   description: string
-  createdAt: string
   precedence: number
+  createdAt: string
   updatedAt: string
-  guests: any[]
-  users: any[]
 }
 
-// Mock event data store
 const fakeEvents = {
-  records: [] as any[], // Holds the list of event objects
+  records: [] as Group[], // Holds the list of event objects
 
-  // Initialize with sample data
   initialize() {
-    const NUM_EVENTS = ['superadmin', 'admin', 'editor', 'viewer', 'guest', 'manager']
-    const SAMPLE_EVENTS: Event[] = []
+    const SAMPLE_GROUPS: Group[] = []
 
-    // Sets para garantir unicidade
-    const usedGuestEmails = new Set<string>()
-
-    // Função para gerar guest único (email único)
-    function generateUniqueGuest(): Guest {
-      let email: string
-      do {
-        email = faker.internet
-          .email({
-            firstName: faker.person.firstName(),
-            lastName: faker.person.lastName()
-          })
-          .toLowerCase()
-      } while (usedGuestEmails.has(email))
-      usedGuestEmails.add(email)
-
+    function generateGroupData(group: any): Group {
       return {
-        id: faker.string.uuid(),
-        email
-      }
-    }
-
-    // Gera evento com convidados únicos
-    function generateRandomEventData(name: string): any {
-      // Cria uma lista de convidados únicos para o evento
-      const maxGuestsForEvent = Math.floor(NUM_EVENTS.length * 2)
-      const guestsPool: any[] = Array.from({ length: maxGuestsForEvent }, () =>
-        generateUniqueGuest()
-      )
-
-      // Seleciona convidados aleatórios para o evento
-      const guestCount = faker.number.int({ min: 1, max: guestsPool.length })
-      const selectedGuests = faker.helpers.shuffle(guestsPool).slice(0, guestCount)
-
-      const guests: any[] = selectedGuests.map((g) => ({
-        sub: faker.string.uuid(),
-        email: faker.internet
-          .email({
-            firstName: faker.person.firstName(),
-            lastName: faker.person.lastName()
-          })
-          .toLowerCase(),
-        createdAt: faker.date.between({ from: '2023-01-01', to: '2026-12-31' }).toISOString(),
-        updatedAt: faker.date.recent().toISOString()
-
-        // eventId,
-        // guestId: g.id,
-        // confirmed: faker.helpers.arrayElement([true, false])
-        // guest: {
-        //   id: g.id,
-        //   email: g.email
-        // }
-      }))
-
-      return {
-        name, // faker.word.words(1), //generateUniqueEventName(),
-        description: faker.lorem.lines({ min: 1, max: 3 }),
+        ...group,
         precedence: faker.number.int({ min: 0, max: 5 }),
         createdAt: faker.date.between({ from: '2023-01-01', to: '2026-12-31' }).toISOString(),
-        updatedAt: faker.date.recent().toISOString(),
-        users: guests
+        updatedAt: faker.date.recent().toISOString()
+        // users
       }
     }
 
-    // Gera todos os eventos
-    for (let i = 1; i <= NUM_EVENTS.length; i++) {
-      SAMPLE_EVENTS.push(generateRandomEventData(NUM_EVENTS[i - 1]))
+    // Genetate all groups
+    for (const group of GROUPS) {
+      SAMPLE_GROUPS.push(generateGroupData(group))
     }
 
-    this.records = SAMPLE_EVENTS
+    this.records = SAMPLE_GROUPS
   },
 
-  // Get all events with optional location filtering and search
   getAll({ search }: { search?: string }) {
-    let events = [...this.records]
+    let groups = [...this.records]
 
     if (search) {
-      events = matchSorter(events, search ?? '', {
-        keys: ['id', 'name', 'description', 'location']
+      groups = matchSorter(groups, search, {
+        keys: ['name', 'description']
       })
     }
 
-    return events
+    return groups
   },
 
-  // Get paginated results with optional category filtering and search
-  getEvents({ page = 1, limit = 10, search }: { page?: number; limit?: number; search?: string }) {
-    const allEvents = this.getAll({ search })
-    const totalEvents = allEvents.length
+  getGroups({ page = 1, limit = 10, search }: { page?: number; limit?: number; search?: string }) {
+    const allGroup = this.getAll({ search })
+    const totalGroup = allGroup.length
 
     const offset = (page - 1) * limit
-    const paginatedEvents = allEvents.slice(offset, offset + limit)
+    const paginatedGroup = allGroup.slice(offset, offset + limit)
 
     return {
       success: true,
-      time: currentTime,
+      time: new Date().toISOString(),
       message: 'Sample data groups for testing and learning purposes',
-      total: totalEvents,
+      total: totalGroup,
       page,
-      totalPages: Math.ceil(totalEvents / limit),
+      totalPages: Math.ceil(totalGroup / limit),
       limit,
-      data: paginatedEvents
+      data: paginatedGroup
     }
   }
 }
 
-// Endpoint GET padrão para Next.js API routes
-export async function GET(request: NextRequest) {
+export function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
 
   const page = Number(searchParams.get('page'))
@@ -161,10 +92,67 @@ export async function GET(request: NextRequest) {
     ...(search && search !== 'null' && { search })
   }
 
-  const data = await fakeEvents.getEvents(filters)
+  const data = fakeEvents.getGroups(filters)
 
   return NextResponse.json(data)
 }
 
-// Inicializa os dados
+const GROUPS = [
+  {
+    roles: ['admin', 'superuser', 'manage_system'],
+    name: 'Administrator',
+    description: 'Full access to all system features and settings.'
+  },
+  {
+    roles: ['user', 'access_basic_features'],
+    name: 'User',
+    description: 'Standard user with access to core functionality.'
+  },
+  {
+    roles: ['guest', 'read_only'],
+    name: 'Guest',
+    description: 'Limited access, usually read-only or temporary access.'
+  },
+  {
+    roles: ['moderate_content', 'manage_users_limited'],
+    name: 'Moderator',
+    description: 'Can review content or manage user behavior within limits.'
+  },
+  {
+    roles: ['access_dev_tools', 'view_logs', 'manage_api'],
+    name: 'Developer',
+    description: 'Access to development and debugging tools, logs, and API configs.'
+  },
+  {
+    roles: ['view_tickets', 'manage_support_cases'],
+    name: 'Support',
+    description: 'Support staff with access to user issues and troubleshooting tools.'
+  },
+  {
+    roles: ['view_audit_logs', 'read_sensitive_data'],
+    name: 'Auditor',
+    description: 'Read-only access to system logs and sensitive audit information.'
+  },
+  {
+    roles: ['manage_team', 'view_reports'],
+    name: 'Manager',
+    description: 'Can oversee teams, access reports, and manage team-related data.'
+  },
+  {
+    roles: ['view_billing', 'manage_invoices'],
+    name: 'Finance',
+    description: 'Access to billing, payments, and financial reports.'
+  },
+  {
+    roles: ['manage_employees', 'view_personal_data'],
+    name: 'HR',
+    description: 'Access to employee records and HR-specific data.'
+  },
+  {
+    roles: ['api_access', 'token_authentication'],
+    name: 'API Client',
+    description: 'Non-human users (like services) using tokens to access the system API.'
+  }
+]
+
 fakeEvents.initialize()

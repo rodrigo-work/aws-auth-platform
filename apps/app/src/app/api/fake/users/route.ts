@@ -101,11 +101,11 @@ const fakeEvents = {
           'viewer',
           //  'guest',
           'manager'
-        ]),
-        description: faker.lorem.sentence(),
-        precedence: 0, //faker.number.int({ min: 0, max: 5 }),
-        createdAt: faker.date.between({ from: '2023-01-01', to: '2026-12-31' }).toISOString(),
-        updatedAt: faker.date.recent().toISOString()
+        ])
+        // description: faker.lorem.sentence(),
+        // precedence: 0, //faker.number.int({ min: 0, max: 5 }),
+        // createdAt: faker.date.between({ from: '2023-01-01', to: '2026-12-31' }).toISOString(),
+        // updatedAt: faker.date.recent().toISOString()
       }))
 
       const uuid = faker.string.uuid()
@@ -159,16 +159,20 @@ const fakeEvents = {
         //         }
         //       ]
         // groups: generateUniqueGuest()
-        groups: [
-          {
-            name: 'guest',
-            description: 'Grupo padrão, para todos usuarios.',
-            precedence: 0,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
-          },
-          ...guests
-        ]
+        // groups: [
+        // {
+        //   name: 'guest',
+        //   description: 'Grupo padrão, para todos usuarios.',
+        //   precedence: 0,
+        //   createdAt: new Date().toISOString(),
+        //   updatedAt: new Date().toISOString()
+        // },
+        // ...guests
+        // ]
+        groups: faker.helpers.arrayElements(
+          ['Administrator', 'User', 'Guest', 'Moderator', 'Developer', 'Support', 'Auditor'],
+          faker.number.int({ min: 1, max: 3 })
+        )
       }
     }
 

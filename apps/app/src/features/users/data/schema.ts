@@ -13,6 +13,16 @@ const userStatusSchema = z.union([
 ])
 export type UserStatus = z.infer<typeof userStatusSchema>
 
+const memberGroupSchema = z.union([
+  z.literal('superadmin'),
+  z.literal('admin'),
+  z.literal('guest'),
+  z.literal('editor'),
+  z.literal('viewer'),
+  z.literal('NULL')
+])
+export type MemberStatus = z.infer<typeof memberGroupSchema>
+
 export const userGroupsSchema = z.object({
   name: z.string(),
   description: z.string().optional(),
@@ -25,7 +35,6 @@ export const userSchema = z
   .object({
     sub: z.string().optional(),
     name: z.string().optional(),
-    groups: z.array(userGroupsSchema),
     phone_number: z.string().optional(),
     phone_number_verified: z.any().optional(),
 
@@ -34,7 +43,8 @@ export const userSchema = z
     email_verified: z.any().optional(),
     enabled: z.boolean(),
     user_status: userStatusSchema.optional(),
-    updatedAt: z.coerce.date()
+    updatedAt: z.coerce.date(),
+    groups: z.array(z.any())
   })
   .strip()
 export type User = z.infer<typeof userSchema>

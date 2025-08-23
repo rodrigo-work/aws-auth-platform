@@ -1,2 +1,3 @@
-export { GroupsDialogDelete } from './users-dialog-delete'
-export { GroupsDialogResetPassword } from './users-dialog-reset-password'
+export { DeleteDialog } from './delete-dialog'
+export { EnableDisableDialog } from './enable-disable-dialog'
+export { ResetPasswordDialog } from './reset-password-dialog'

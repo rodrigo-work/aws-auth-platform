@@ -2,7 +2,7 @@
   "extends": ["//"],
   "tasks": {
     "build": {
-      "env": ["NODE_ENV", "API_URL"],
+      "env": ["NODE_ENV"],
       "outputs": [".next/**", "!.next/cache/**"]
     }
   }

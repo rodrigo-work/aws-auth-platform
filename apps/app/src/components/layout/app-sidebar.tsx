@@ -30,7 +30,7 @@ export function AppSidebar() {
   const pathname = usePathname()
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" variant="sidebar">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -43,7 +43,7 @@ export function AppSidebar() {
                   <span className="font-medium">aws-auth-platform</span>
                   <span className="truncate text-xs">
                     Advanced Authentication Platform
-                     {/* with Amazon Cognito */}
+                    {/* with Amazon Cognito */}
                   </span>
                 </div>
               </Link>

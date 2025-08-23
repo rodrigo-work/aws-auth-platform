@@ -49,8 +49,8 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         className={cn(
           'overflow-hidden overscroll-none bg-background font-sans antialiased',
           activeThemeValue ? `theme-${activeThemeValue}` : '',
-          isScaled ? 'theme-scaled' : ''
-          // fontVariables
+          isScaled ? 'theme-scaled' : '',
+          fontVariables
         )}
       >
         <NextTopLoader showSpinner={false} />

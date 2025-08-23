@@ -1,16 +1,17 @@
 'use client'
 
+import { formatDate } from '@/lib/format'
 import { DataTableColumnHeader } from '@repo/design-system/components/table/data-table-column-header'
+import { Avatar, AvatarFallback } from '@repo/design-system/components/ui/avatar'
 import { Badge } from '@repo/design-system/components/ui/badge'
 import { Checkbox } from '@repo/design-system/components/ui/checkbox'
 import { cn } from '@repo/design-system/lib/utils'
 import { IconCalendar, IconCircleCheck, IconCircleMinus } from '@tabler/icons-react'
 import type { ColumnDef } from '@tanstack/react-table'
-import { formatDate } from '@/lib/format'
-import { callTypes } from '../data/data'
+import { TooltipCustom } from '../../components/tooltip-custom'
+import { userStatus } from '../data/data'
 import type { User } from '../data/schema'
 import { DataTableRowActions } from './data-table-row-actions'
-import { TooltipCustom } from './TooltipCustom'
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -41,26 +42,13 @@ export const columns: ColumnDef<User>[] = [
     accessorKey: 'name',
     header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
     cell: ({ row }) => {
-      const { name, username } = row.original
-      // const userType = groupTypes.find(({ value }) => value === name)
-
-      // if (!userType) {
-      //   return null
-      // }
+      const { name } = row.original
 
       return (
         <div className="flex items-center space-x-2">
-          {/* {userType.icon && (
-            <userType.icon className="text-muted-foreground" size={16} />
-          )} */}
           <span className="truncate font-medium text-bold">{name}</span>
         </div>
       )
-    },
-    meta: {
-      label: 'Name',
-      placeholder: 'Search users...',
-      variant: 'text'
     },
     size: 160,
     enableSorting: true,
@@ -68,16 +56,10 @@ export const columns: ColumnDef<User>[] = [
     enableColumnFilter: true
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'email_verified',
     header: ({ column }) => <DataTableColumnHeader column={column} title="Email" />,
     cell: ({ row }) => {
       const { email, email_verified } = row.original
-      // const userType = groupTypes.find(({ value }) => value === name)
-
-      // if (!userType) {
-      //   return null
-      // }
-
       return (
         <div className="flex items-center space-x-2">
           <TooltipCustom tooltipContent={email_verified ? 'email verified' : 'emailnot verified'}>
@@ -96,12 +78,10 @@ export const columns: ColumnDef<User>[] = [
     },
     size: 160,
     enableSorting: true,
-    enableHiding: true,
-    enableColumnFilter: true
+    enableHiding: true
   },
   {
-    id: 'phone_number',
-    accessorKey: 'phone_number',
+    accessorKey: 'phone_number_verified',
     header: ({ column }) => <DataTableColumnHeader column={column} title="Phone" />,
     cell: ({ row }) => {
       const { phone_number, phone_number_verified } = row.original
@@ -121,46 +101,66 @@ export const columns: ColumnDef<User>[] = [
         </div>
       )
     },
-    size: 60,
-    enableSorting: false,
-    enableHiding: false
-  },
-  {
-    accessorKey: 'user_status',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
-    cell: ({ row }) => {
-      const { enabled, user_status } = row.original
-      const badgeColor = callTypes[user_status ?? 'NULL']
-
-      return (
-        <div className="flex space-x-2">
-          <Badge className={cn('capitalize', badgeColor)} variant="outline">
-            {/* {enabled ? user_status : 'DISABLED'} */}
-            {user_status} {enabled ? 'enabled' : 'disabled'}
-          </Badge>
-        </div>
-      )
-    },
     meta: {
-      label: 'Status'
+      label: 'Phone'
     },
     size: 60,
     enableSorting: true,
     enableHiding: true
   },
   {
-    accessorKey: 'users',
+    accessorKey: 'user_status',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
+    cell: ({ row }) => {
+      const { enabled, user_status } = row.original
+      const status = enabled ? 'DISABLED' : user_status
+      const userType = userStatus.find(({ value }) => value === status)
+
+      return (
+        <div className="flex space-x-2">
+          <Badge
+            className={cn('capitalize-- rounded-sm text-xs', userType?.color)}
+            variant="outline"
+          >
+            {userType?.label}
+          </Badge>
+          {!userType?.color && userType?.label}
+        </div>
+      )
+    },
+    filterFn: (row, _columnId, value) => {
+      const { enabled, user_status } = row.original
+      const status = enabled ? 'DISABLED' : user_status
+
+      // return value.includes(status).length
+      return value.includes(status)
+    },
+    meta: {
+      label: 'Status',
+      variant: 'multiSelect' // ou 'multiSelect' se quiser múltiplas seleções
+    },
+    size: 60,
+    enableSorting: true,
+    enableHiding: true,
+    enableColumnFilter: true
+  },
+  {
+    accessorKey: 'groups',
     header: ({ column }) => <DataTableColumnHeader column={column} title="Groups" />,
     cell: ({ row }) => {
       const { groups } = row.original
-      const members = groups.map((g) => g.name)
-      const uniqueRoles = [...new Set(members)]
+      // const groupType = groupTypes.find(({ v }) => v === value)
+
+      // if (!groupType) {
+      //   return groups
+      // }
+      // const members = groups.map((g) => g.name)
+      // const uniqueRoles = [...new Set(members)]
 
       return (
-        <div className="flex flex-row space-x-2">
-          {JSON.stringify(members, null, 2)}
-          {/* <span className="-space-x-2 flex truncate">
-            {uniqueRoles.slice(0, 4).map((g) => {
+        <div className="flex space-x-2">
+          <span className="-space-x-2 flex truncate">
+            {groups.slice(0, 4).map((g) => {
               return (
                 <Avatar key={g}>
                   <AvatarFallback>
@@ -170,20 +170,23 @@ export const columns: ColumnDef<User>[] = [
                 </Avatar>
               )
             })}
-            {uniqueRoles.length > 4 && (
+            {groups.length > 4 && (
               <span className="flex items-center font-small">
                 <Avatar>
-                  <AvatarFallback> {`+${uniqueRoles.length}`}</AvatarFallback>
+                  <AvatarFallback> {`+${groups.length}`}</AvatarFallback>
                 </Avatar>
               </span>
             )}
-          </span> */}
+          </span>
         </div>
       )
     },
+    meta: {
+      label: 'Groups'
+    },
     size: 60,
     enableSorting: false,
-    enableHiding: false
+    enableHiding: true
   },
   {
     accessorKey: 'updatedAt',

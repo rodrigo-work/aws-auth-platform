@@ -6,8 +6,8 @@ import { Input } from '@repo/design-system/components/ui/input'
 import { Label } from '@repo/design-system/components/ui/label'
 import { IconAlertTriangle } from '@tabler/icons-react'
 import { useState } from 'react'
+import { ConfirmDialog } from '../../../components/confirm-dialog'
 import type { User } from '../../data/schema'
-import { ConfirmDialog } from '../ConfirmDialog'
 
 interface Props {
   open: boolean
@@ -15,16 +15,16 @@ interface Props {
   currentRow: User
 }
 
-export function GroupsDialogDelete({ open, onOpenChange, currentRow }: Props) {
+export function DeleteDialog({ open, onOpenChange, currentRow }: Props) {
   const [value, setValue] = useState('')
 
   const handleDelete = () => {
-    if (value.trim() !== 'Delete') {
+    if (value.trim() !== 'delete') {
       return
     }
 
     onOpenChange(false)
-    // showSubmittedData(currentRow, 'The following user has been deleted:')
+    showSubmittedData(currentRow.sub, 'The following user has been deleted:')
   }
 
   return (
@@ -34,39 +34,42 @@ export function GroupsDialogDelete({ open, onOpenChange, currentRow }: Props) {
         <div className="space-y-4">
           <p className="mb-2">
             Are you sure you want to delete{' '}
-            {/* <span className="font-bold">{currentRow.name.toLocaleUpperCase()}</span>? */}
+            <span className="font-bold italic">{currentRow.email}</span>?
           </p>
           <p className="mb-2">
-            By continuing, you're confirming that the above group(s) will be permanently deleted.{' '}
+            By continuing, you're confirming that the above user(s) will be permanently deleted.{' '}
             <span className="font-bold text-destructive">THIS CANNOT BE UNDONE.</span>
           </p>
-
-          <Label className="my-4">
-            <Input
-              onChange={(e) => setValue(e.target.value)}
-              placeholder="To confirm group deletion, type Delete"
-              value={value}
-            />
-          </Label>
-          <Alert className="my-6" variant="destructive">
-            <AlertTitle>Warning!</AlertTitle>
-            <AlertDescription>
-              Please be carefull, this operation can not be rolled back.
-            </AlertDescription>
-          </Alert>
         </div>
       }
-      disabled={value.trim() !== 'Delete'}
+      disabled={value.trim() !== 'delete'}
       handleConfirm={handleDelete}
       onOpenChange={onOpenChange}
       open={open}
       title={
         <span className="text-destructive">
-          <IconAlertTriangle className="mr-1 inline-block stroke-destructive" size={18} /> Delete
-          group
+          <IconAlertTriangle className="mr-1 inline-block stroke-destructive" size={18} />
+          Delete user(s)
         </span>
       }
       type="destructive"
-    />
+    >
+      <div className="space-y-4">
+        <Label className="my-4">
+          <Input
+            onChange={(e) => setValue(e.target.value)}
+            placeholder="To confirm user(s) deletion, type delete"
+            value={value}
+          />
+        </Label>
+        <Alert className="my-6" variant="destructive">
+          <AlertTitle>Warning!</AlertTitle>
+          <AlertDescription>
+            Please be carefull, this operation can not be rolled back.
+          </AlertDescription>
+        </Alert>
+        {/* {JSON.stringify(currentRow, null, 2)} */}
+      </div>
+    </ConfirmDialog>
   )
 }

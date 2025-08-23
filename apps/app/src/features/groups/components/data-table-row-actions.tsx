@@ -9,7 +9,7 @@ import {
 } from '@repo/design-system/components/ui/dropdown-menu'
 import { IconDots, IconEdit, IconTrash } from '@tabler/icons-react'
 import type { Row } from '@tanstack/react-table'
-import { useGroups } from '../../context/groups-context'
+import { useGroups } from '../context/groups-context'
 import type { Group } from '../data/schema'
 
 interface DataTableRowActionsProps {
@@ -18,6 +18,7 @@ interface DataTableRowActionsProps {
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const { setOpen, setCurrentRow } = useGroups()
+
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
@@ -30,6 +31,18 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         <DropdownMenuItem
         // onClick={() => {
         //   setCurrentRow(row.original)
+        //   setOpen('manage-users')
+        // }}
+        >
+          Add users
+          <DropdownMenuShortcut>
+            <IconEdit size={16} />
+          </DropdownMenuShortcut>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+        // onClick={() => {
+        //   setCurrentRow(row.original)
         //   setOpen('edit')
         // }}
         >
@@ -39,23 +52,11 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
           </DropdownMenuShortcut>
         </DropdownMenuItem>
         <DropdownMenuItem
-        // onClick={() => {
-        //   setCurrentRow(row.original)
-        //   setOpen('manage-users')
-        // }}
-        >
-          Manage users
-          <DropdownMenuShortcut>
-            <IconEdit size={16} />
-          </DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
-        // className="text-red-500!"
-        // onClick={() => {
-        //   setCurrentRow(row.original)
-        //   setOpen('delete')
-        // }}
+          className="text-red-500!"
+          // onClick={() => {
+          //   setCurrentRow(row.original)
+          //   setOpen('delete')
+          // }}
         >
           Delete
           <DropdownMenuShortcut>

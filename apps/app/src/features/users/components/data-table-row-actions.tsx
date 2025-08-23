@@ -9,7 +9,7 @@ import {
 } from '@repo/design-system/components/ui/dropdown-menu'
 import { IconDots, IconEdit, IconTrash } from '@tabler/icons-react'
 import type { Row } from '@tanstack/react-table'
-import { useGroups } from '../../context/groups-context'
+import { useUsers } from '../context/users-context'
 import type { User } from '../data/schema'
 
 interface DataTableRowActionsProps {
@@ -17,7 +17,7 @@ interface DataTableRowActionsProps {
 }
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
-  const { setOpen, setCurrentRow } = useGroups()
+  const { setOpen, setCurrentRow } = useUsers()
 
   return (
     <DropdownMenu modal={false}>
@@ -31,22 +31,10 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         <DropdownMenuItem
           onClick={() => {
             setCurrentRow(row.original)
-            setOpen('edit')
-          }}
-        >
-          Edit
-          <DropdownMenuShortcut>
-            <IconEdit size={16} />
-          </DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
-          onClick={() => {
-            setCurrentRow(row.original)
             setOpen('enable-disable-user')
           }}
         >
-          {row.original.enabled ? 'Disable user' : 'Enable user'}
+          {row.original.enabled ? 'Enable user' : 'Disable user'}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
@@ -58,6 +46,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
+          disabled
           onClick={() => {
             setCurrentRow(row.original)
             setOpen('edit')

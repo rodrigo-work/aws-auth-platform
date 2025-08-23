@@ -1,20 +1,10 @@
 'use client'
 
 import { DataTable } from '@repo/design-system/components/table/data-table'
-import { DataTableToolbar } from '@repo/design-system/components/table/data-table-toolbar'
-import { Button } from '@repo/design-system/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger
-} from '@repo/design-system/components/ui/dropdown-menu'
 import { useDataTable } from '@repo/design-system/hooks/use-data-table'
-import { IconChevronDown, IconDotsVertical, IconEdit, IconTrash } from '@tabler/icons-react'
 import type { ColumnDef } from '@tanstack/react-table'
 import { parseAsInteger, useQueryState } from 'nuqs'
+import { DataTableToolbar } from './data-table-toolbar'
 
 interface TableProps<TData, TValue> {
   data: TData[]
@@ -38,17 +28,14 @@ export function UsersTable<TData, TValue>({
     debounceMs: 500
   })
 
-  // const { setOpen, setCurrentRow } = useGroups()
-
-  const isSelected = table.getSelectedRowModel().rows.map((obj) => obj.original)
-  const isSelectedLength = isSelected.length
+  // const isSelected = table.getSelectedRowModel().rows.map((obj) => obj.original)
+  // const isSelectedLength = isSelected.length
   // const isFiltered = table.getState().columnFilters.length > 0
 
   return (
     <DataTable table={table}>
-      {/* <code className="tex-sm"> {JSON.stringify(isSelected)}</code> */}
       <DataTableToolbar table={table}>
-        <DropdownMenu modal={false}>
+        {/* <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Button
               aria-label="Toggle columns"
@@ -89,7 +76,7 @@ export function UsersTable<TData, TValue>({
               </DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu> */}
       </DataTableToolbar>
     </DataTable>
   )

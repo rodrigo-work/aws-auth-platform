@@ -9,12 +9,15 @@ export const userSchema = z
 
 export const groupSchema = z
   .object({
-    name: z.string(),
+    name: z.string().min(2, {
+      message: 'Group must be at least 2 characters long.'
+    }),
     description: z.string().optional(),
     precedence: z.number().optional(),
-    // createdAt: z.string(),
+    // createdAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
-    users: z.array(userSchema).optional()
+    roles: z.array(z.string()).optional()
+    // users: z.array(userSchema).optional()
   })
   .strip()
 export type Group = z.infer<typeof groupSchema>

@@ -15,12 +15,15 @@
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
     "@repo/design-system": "workspace:*",
+    "@repo/internationalization": "workspace:*",
+    "@repo/rate-limit": "workspace:*",
+    "@repo/seo": "workspace:*",
     "@t3-oss/env-nextjs": "^0.13.8",
     "@tanstack/react-table": "^8.21.3",
     "date-fns": "^4.1.0",
-    "loadash": "^1.0.0",
+    "jose": "^6.0.12",
+    "lodash": "^4.17.21",
     "lucide-react": "^0.475.0",
-    "match-sorter": "^8.0.0",
     "next": "15.3.2",
     "next-themes": "^0.4.6",
     "nextjs-toploader": "^3.8.16",
@@ -28,18 +31,18 @@
     "react": "^19",
     "react-dom": "^19",
     "react-hook-form": "^7.56.1",
-    "recharts": "^2.15.3",
     "sonner": "^2.0.3",
     "zod": "^4.0.14"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.7.0",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@tabler/icons-react": "^3.31.0",
     "@types/node": "^22.14.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@faker-js/faker": "^9.7.0",
+    "match-sorter": "^8.0.0",
     "tailwindcss": "^4.1.7",
     "typescript": "^5.8.3"
   }

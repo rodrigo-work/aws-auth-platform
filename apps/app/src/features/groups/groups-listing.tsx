@@ -1,8 +1,8 @@
 import { searchParamsCache } from '@/lib/searchparams'
-import { getAllGroups, getAllUsers } from '../actions'
+import { getAllGroups } from '../actions'
 import { columns } from './components/data-table-columns'
 import { GroupsTable } from './components/groups-table'
-import { type Groups, groupsSchema, type Users, usersSchema } from './data/schema'
+import type { Groups } from './data/schema'
 
 export default async function GroupsListingPage() {
   // Showcasing the use of search params cache in nested RSCs
@@ -18,18 +18,12 @@ export default async function GroupsListingPage() {
 
   const data = await getAllGroups(filters)
   const total = data.total
-  // const groups: Groups = data.data
-  const groups: Groups = groupsSchema.parse(data.data)
-
-  const dataUsers = await getAllUsers(filters)
-  // const total = data.total
-  // const users: Users = dataUsers.data
-
-  const users: Users = usersSchema.parse(dataUsers.data)
+  const groups: Groups = data.data
+  // const groups: Groups = groupsSchema.parse(data.data)
 
   return (
     <>
-      {/* <code>{JSON.stringify(users, null, 2)}</code> */}
+      {/* <code>{JSON.stringify(groups, null, 2)}</code> */}
       <GroupsTable columns={columns} data={groups} totalItems={total} />
     </>
   )
